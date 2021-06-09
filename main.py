@@ -1,7 +1,7 @@
 import random
 from typing import Optional
 
-from fastapi import FastAPI, Response
+from fastapi import FastAPI, Response, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 import clipfetcher
@@ -45,8 +45,10 @@ def read_item(username: str):
     access_token = clipfetcher.get_auth()
     broadcaster_id = clipfetcher.get_broadcaster_id(access_token, username)
     if not broadcaster_id:
-        return
+        raise HTTPException(status_code=404, detail=f"Error getting broadcaster_id for {username}")
     clips = clipfetcher.get_broadcaster_clips(access_token, broadcaster_id, first=100)
+    if not clips:
+        raise HTTPException(status_code=404, detail=f"No clips found for {username}")
     clip = random.choice(clips)
     mp4_url = clipfetcher.get_clip_url(access_token, clip['url'])
     return Response(content=mp4_url, media_type="text/plain")
