@@ -106,7 +106,7 @@ function shoutOut(message) {
   //userText.innerText = username;
   //shoutText.style.visibility = "visible";
 
-  fetch("http://127.0.0.1:8000/soclip/" + username)
+  fetch(window.location.origin + "/soclip/" + username)
     .then(status)
     .then(json)
     .then(function (data) {
