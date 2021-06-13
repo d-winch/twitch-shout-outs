@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="{{ url_for('static', path='/favicon.ico') }}">
+    <link
+      href="{{ url_for('static', path='/css/styles.css') }}"
+      rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css?family=Creepster"
+      rel="stylesheet">
+    <script
+      src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+  </head>
+  <body>
+    <div id="shoutText">Check out <span id="usernameText">USERNAME</span></div>
+    <div id="videoPlayer">
+      <video id="video" width="100%" height="100%">
+        <source type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <script src="{{ url_for('static', path='/js/so.js') }}">
+    </script>
+  </body>
+</html>

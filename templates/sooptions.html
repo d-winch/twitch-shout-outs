@@ -1,0 +1,203 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
+
+    <title>Checkout example for Bootstrap</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <style>
+      .container {
+        max-width: 960px;
+      }
+      .custom-control-input.is-valid~.custom-control-label::before, .was-validated .custom-control-input:valid~.custom-control-label::before {
+        background-color: #dee2e6;
+      }
+      .custom-control-input.is-valid:checked~.custom-control-label::before, .was-validated .custom-control-input:valid:checked~.custom-control-label::before {
+        background-color: #007bff;
+      }
+      .custom-control-input.is-valid~.custom-control-label, .was-validated .custom-control-input:valid~.custom-control-label {
+        color: #212529;
+      }
+
+
+      .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: 120px;  /* Preferred icon size */
+        color: #0d66c5;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+      }
+    </style>
+
+  </head>
+
+  <body class="bg-light">
+    <div class="container">
+      <div class="py-5 text-center">
+        <span class="material-icons mt-3 mb-3">
+          voice_chat
+        </span>
+        <!-- <img class="d-block mx-auto mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> -->
+        <h2>Twitch Clip Shout Outs</h2>
+        <p class="lead">Want to add clips to your Twitch shout outs?</br>
+          Fill in the options below to get your url.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-7 order-md-1 container">
+          <h4 class="mb-3">Options</h4>
+          <form id="form-options" class="needs-validation" novalidate>
+            
+            <div class="mb-3">
+              <label for="username">Username</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">@</span>
+                </div>
+                <input type="text" class="form-control" id="username" placeholder="Username" required>
+                <div class="invalid-feedback">
+                  Your username is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="mute">Mute Clips</label>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="mute">
+                  <label class="custom-control-label" for="mute">Mute audio in clips</label>
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="max-duration">Maximum Clip Duration (seconds)</label></br>
+                <div class="d-flex justify-content-center">
+                  <input type="range" class="custom-range" name="" min="10" max="60" step="5" value="20" id="maxduration" style="width: 100%;" oninput="durationvalue.value=maxduration.value">
+                  <span class="font-weight-bold ml-2"><output name="durationvalue" id="amount" for="maxduration">20</output></span>
+                  <div class="invalid-feedback">
+                    Please provide a valid maximum clip duration
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="urlModal">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">URL Source</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Copy the URL and set as the browser source in OBS.</p>
+                    <p id="url-source"></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" type="button" class="btn btn-primary">Close</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+
+            <hr class="mb-4">
+            <button class="btn btn-primary btn-lg btn-block" type="submit">Get Shout Out URL</button>
+          </form>
+        </div>
+      </div>
+
+      <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-2 pb-2">&copy; 2021 David Winch</p>
+      </footer>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+      integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+      crossorigin="anonymous"></script>
+      <script
+        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+      <script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script>
+      (function() {
+        'use strict';
+
+        window.addEventListener('load', function() {
+          // Fetch all the forms we want to apply custom Bootstrap validation styles to
+          var forms = document.getElementsByClassName('needs-validation');
+
+          // Loop over them and prevent submission
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              event.preventDefault();
+              if (form.checkValidity() === false) {
+                event.stopPropagation();
+              }
+              else {
+                // Grab our values, create our URL and then show the modal
+                let username = $('#username').val();
+                let maxDuration = $('#maxduration').val();
+                let mute = $('#mute').prop('checked');
+
+                $('#url-source').text(window.location.origin + "/soclip?username=USER&max_duration=MAX&muted=MUTE"
+                  .replace("USER", username)
+                  .replace("MAX", maxDuration)
+                  .replace("MUTE", mute));
+                
+                $('#urlModal').modal('show');
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+    </script>
+  </body>
+</html>

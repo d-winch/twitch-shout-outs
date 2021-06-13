@@ -1,0 +1,39 @@
+body {
+  margin: 0px;
+}
+
+#shoutText {
+  visibility: hidden;
+  text-align: center;
+  width: 100%;
+  /* Creepster for Bunny */
+  font-family: "Creepster";
+  font-size: 3.4em;
+  word-wrap: none;
+  position: absolute;
+  z-index: 1;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+  /* https://codepen.io/juanbrujo/pen/yGpAK */
+  letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #181616,
+      7px 7px 0px #00000033;
+
+}
+
+#usernameText {
+  /*color: rgb(23, 158, 199);*/
+  /* Orange for Bunny */
+  color: #dd5713;
+}
+
+#video {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+}
