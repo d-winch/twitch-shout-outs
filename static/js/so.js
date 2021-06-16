@@ -174,5 +174,3 @@ setInterval(function () {
     resetShout();
   }
 }, 1000);
-
-shoutOut("@zombunnyyy")
