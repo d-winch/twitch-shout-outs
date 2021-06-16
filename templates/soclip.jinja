@@ -7,14 +7,18 @@
     <link
       href="{{ url_for('static', path='/css/styles.css') }}"
       rel="stylesheet">
-    <link
-      href="https://fonts.googleapis.com/css?family=Creepster"
+    <!--<link
+      href="https://fonts.googleapis.com/css?family={{ font_url }}"
+      rel="stylesheet">-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Bangers&family=Bevan&family=Black+Ops+One&family=Bowlby+One+SC&family=Bungee&family=Caesar+Dressing&family=Chango&family=Creepster&family=Days+One&family=Exo+2:wght@700&family=Fugaz+One&family=Lemon&family=Lexend+Giga&family=Luckiest+Guy&family=Maven+Pro:wght@700&family=Montserrat:wght@700&family=Noto+Sans:wght@700&family=Nunito:wght@700&family=Open+Sans:wght@700&family=Permanent+Marker&family=Press+Start+2P&family=Raleway:wght@700&family=Rammetto+One&family=Ruda:wght@700&family=Sigmar+One&family=Slackey&family=Sniglet:wght@800&family=Special+Elite&family=Staatliches&family=Titan+One&display=swap"
       rel="stylesheet">
+
     <script
       src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
   </head>
   <body>
-    <div id="shoutText">Check out <span id="usernameText">USERNAME</span></div>
+    <div id="shoutText" style="font-family:{{ font_name }};">CHECK OUT <span id="usernameText" style="color:{{ name_color }}">USERNAME</span></div>
     <div id="videoPlayer">
       <video id="video" width="100%" height="100%">
         <source type="video/mp4">

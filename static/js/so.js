@@ -21,7 +21,13 @@ let shoutOuts = [];
 ComfyJS.Init(broadcastUsername);
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
-  if ((flags.broadcaster || flags.mod) && command === "so") {
+
+  // Return if the command was not by the broadcaster or a mod
+  if (!flags.broadcaster && !flags.mod) {
+    return
+  }
+
+  if (command === "so") {
     if (isActive) {
       console.log("!so by " + user);
       shoutOut(message);
@@ -31,41 +37,39 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "soreload") {
+  if (command === "soreload") {
     location.reload();
-    console.log("!soreload by " + user);
+    console.log("!soreload by " + user); // Log after reload for where persistant logs disabled
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "soon") {
+  if (command === "soon") {
     console.log("!soon by " + user);
-    console.log("Shoutouts are enabled");
     isActive = true;
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "sooff") {
+  if (command === "sooff") {
     console.log("!sooff by " + user);
-    console.log("Shoutouts are disabled");
     isActive = false;
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "somute") {
+  if (command === "somute") {
     console.log("!somute by " + user);
     muted = true;
     video.muted = true;
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "sounmute") {
+  if (command === "sounmute") {
     console.log("!sounmute by " + user);
     muted = false;
     video.muted = false;
     return;
   }
 
-  if ((flags.broadcaster || flags.mod) && command === "sostop") {
+  if (command === "sostop") {
     // BROKEN DUE TO VIDEO PLAY PROMISE
     console.log("!sostop by " + user);
     shoutOuts = shoutOuts.slice(1);
@@ -103,9 +107,6 @@ function shoutOut(message) {
   let username = message.split(" ")[0].replace("@", "");
   console.log("User: " + username);
 
-  //userText.innerText = username;
-  //shoutText.style.visibility = "visible";
-
   fetch(window.location.origin + "/soclip/" + username)
     .then(status)
     .then(json)
@@ -124,7 +125,7 @@ function playVideo(shoutOutData) {
   username = shoutOutData["username"];
   url = shoutOutData["url"];
 
-  userText.textContent = username;
+  userText.textContent = username.toUpperCase();
   video.setAttribute("src", url);
 
   video.muted = muted;
@@ -173,3 +174,5 @@ setInterval(function () {
     resetShout();
   }
 }, 1000);
+
+shoutOut("@zombunnyyy")

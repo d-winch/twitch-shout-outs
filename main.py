@@ -10,6 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 import clipfetcher
+from fonts import font_options
 
 logger = logging.getLogger('main')
 logger.setLevel(logging.DEBUG)
@@ -36,7 +37,11 @@ app.add_middleware(
 
 @app.get("/")
 def get_so_options(request: Request):
-    return templates.TemplateResponse("sooptions.html", {"request": request})
+    context = {
+        "request": request,
+        "fonts": font_options
+    }
+    return templates.TemplateResponse("sooptions.jinja", context=context)
 
 
 @app.get("/soclip")
@@ -44,14 +49,19 @@ def get_so_template(
         request: Request,
         username: str,
         max_duration: Optional[int] = Query(20, gt=0, le=60),
-        muted: Optional[bool] = False
+        muted: Optional[bool] = False,
+        font: Optional[str] = "Bowlby One SC",
+        name_color: Optional[str] = "white"
 ):
     context = {
         "request": request,
         "username": username,
         "max_duration": max_duration,
-        "muted": str(muted).lower()
+        "muted": str(muted).lower(),
+        "font_name": font_options[font],
+        "name_color": name_color
     }
+    print(font_options[font])
     return templates.TemplateResponse('soclip.jinja', context=context)
 
 
@@ -80,7 +90,7 @@ def get_soclip_url(username: str):
     clip = random.choice(clips)
     mp4_url = clipfetcher.get_clip_url(access_token, clip['url'])
     logger.info(f"Returning clip {mp4_url} for {username}")
-    
+
     res = {"username": username, "url": mp4_url}
     json_compatible_item_data = jsonable_encoder(res)
 
