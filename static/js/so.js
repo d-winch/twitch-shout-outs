@@ -35,7 +35,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
   if (command === "so") {
     if (isActive) {
       console.log("!so by " + user);
-      shoutOut(message);
+      shoutOut(message, flags.broadcaster);
     } else {
       console.log("!so by " + user + " but shoutouts are disabled");
     }
@@ -118,13 +118,16 @@ function isOnCooldown(username) {
   return true;
 }
 
-function shoutOut(message) {
+function shoutOut(message, isBroadcaster) {
   console.log("shoutOut function called with message " + message);
   let username = message.split(" ")[0].replace("@", "");
 
-  //Check if this username is on cooldown
-  if (isOnCooldown(username)) {
-    return;
+  // If user is not the broadcaster
+  if(!isBroadcaster){
+    // Check if this username is on cooldown
+    if (isOnCooldown(username)) {
+      return;
+    }
   }
 
   fetch(window.location.origin + "/soclip/" + username)
