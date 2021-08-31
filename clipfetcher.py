@@ -53,7 +53,7 @@ if __name__ == "__main__":
     access_token = get_auth()
     print(access_token)
 
-    broadcaster_id = get_broadcaster_id("zombunnyyy")
+    broadcaster_id = get_broadcaster_id(access_token, "zombunnyyy")
 
     clips = get_broadcaster_clips(access_token, broadcaster_id, first=100)
     pp.pprint(clips)
