@@ -111,8 +111,6 @@ function json(response) {
 function isOnCooldown(username) {
   if( !shoutOutsCooldowns[username] || shoutOutsCooldowns[username] + cooldownMillis < Date.now() ){
     // User isn't on cooldown
-    // Add the last shout out time
-    shoutOutsCooldowns[username] = Date.now();
     return false;
   }
   return true;
@@ -129,6 +127,9 @@ function shoutOut(message, isBroadcaster) {
       return;
     }
   }
+
+  // Add the last shout out time
+  shoutOutsCooldowns[username] = Date.now();
 
   fetch(window.location.origin + "/soclip/" + username)
     .then(status)
