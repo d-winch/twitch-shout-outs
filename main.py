@@ -47,21 +47,22 @@ def get_so_options(request: Request):
 @app.get("/soclip")
 def get_so_template(
         request: Request,
-        username: str,
-        max_duration: Optional[int] = Query(20, gt=0, le=60),
-        muted: Optional[bool] = False,
+        #username: str,
+        #max_duration: Optional[int] = Query(20, gt=0, le=60),
+        #muted: Optional[bool] = False,
+        #cooldownMinutes: Optional[int] = Query(0, gt=0, le=60),
         font: Optional[str] = "Bowlby One SC",
         name_color: Optional[str] = "white"
 ):
     context = {
         "request": request,
-        "username": username,
-        "max_duration": max_duration,
-        "muted": str(muted).lower(),
+        #"username": username,
+        #"max_duration": max_duration,
+        #"muted": str(muted).lower() == "true",
+        #"cooldownMinutes": cooldownMinutes,
         "font_name": font_options[font],
         "name_color": name_color
     }
-    print(font_options[font])
     return templates.TemplateResponse('soclip.jinja', context=context)
 
 
