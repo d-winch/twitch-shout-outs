@@ -7,7 +7,9 @@ const urlParams = new URLSearchParams(queryString);
 const broadcastUsername = urlParams.get("username");
 const max_duration = urlParams.get("max_duration");
 let muted = urlParams.get("muted") === "true";
-console.log(broadcastUsername, max_duration, muted);
+let cooldownMinutes = urlParams.get("cooldownMinutes");
+if(!cooldownMinutes){ cooldownMinutes = 0; } // For legacy users
+console.log("Username:"+broadcastUsername, "Max Duration:"+max_duration, "Muted:"+muted, "Cooldown:"+cooldownMinutes+" minutes");
 
 // Get elements
 const shoutText = document.getElementById("shoutText");
@@ -18,13 +20,16 @@ let isActive = true;
 let isClipPlaying = false;
 let shoutOuts = [];
 
+let shoutOutsCooldowns = {};
+let cooldownMillis = 60000 * cooldownMinutes;
+
 ComfyJS.Init(broadcastUsername);
 
 ComfyJS.onCommand = (user, command, message, flags, extra) => {
 
   // Return if the command was not by the broadcaster or a mod
   if (!flags.broadcaster && !flags.mod) {
-    return
+    return;
   }
 
   if (command === "so") {
@@ -76,6 +81,7 @@ ComfyJS.onCommand = (user, command, message, flags, extra) => {
     resetShout();
     return;
   }
+
 };
 
 ComfyJS.onRaid = (user, viewers, extra) => {
@@ -102,10 +108,24 @@ function json(response) {
   return response.json();
 }
 
+function isOnCooldown(username) {
+  if( !shoutOutsCooldowns[username] || shoutOutsCooldowns[username] + cooldownMillis < Date.now() ){
+    // User isn't on cooldown
+    // Add the last shout out time
+    shoutOutsCooldowns[username] = Date.now();
+    return false;
+  }
+  return true;
+}
+
 function shoutOut(message) {
   console.log("shoutOut function called with message " + message);
   let username = message.split(" ")[0].replace("@", "");
-  console.log("User: " + username);
+
+  //Check if this username is on cooldown
+  if (isOnCooldown(username)) {
+    return;
+  }
 
   fetch(window.location.origin + "/soclip/" + username)
     .then(status)
